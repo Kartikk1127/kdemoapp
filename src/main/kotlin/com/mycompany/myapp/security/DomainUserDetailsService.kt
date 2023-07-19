@@ -38,6 +38,7 @@ class DomainUserDetailsService(private val userRepository: UserRepository) : Use
 
     private fun createSpringSecurityUser(lowercaseLogin: String, user: User): org.springframework.security.core.userdetails.User {
         if (user.activated == null || user.activated == false) {
+            println(user)
             throw UserNotActivatedException("User $lowercaseLogin was not activated")
         }
         val grantedAuthorities = user.authorities.map { SimpleGrantedAuthority(it.name) }
